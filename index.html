@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubyx Events Calendar 2026</title>
+    <style>
+        :root {
+            /* Ubyx Brand Colours */
+            --ubyx-purple: #3d1e6d;
+            --ubyx-purple-deep: #2a1150;
+            --ubyx-purple-light: #5b3a8c;
+            --ubyx-teal: #00d4aa;
+            --ubyx-cyan: #0088cc;
+            --ubyx-magenta: #e040fb;
+            --ubyx-slate: #1e1e2e;
+            --ubyx-grey: #f7f7fa;
+
+            /* Functional tokens */
+            --primary: var(--ubyx-purple);
+            --primary-deep: var(--ubyx-purple-deep);
+            --primary-light: var(--ubyx-purple-light);
+            --accent: var(--ubyx-teal);
+            --ubyx-attending: var(--ubyx-teal);
+            --ubyx-speaking: var(--ubyx-magenta);
+            --bg: #ffffff;
+            --bg-secondary: var(--ubyx-grey);
+            --card-bg: #ffffff;
+            --text: var(--ubyx-slate);
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-light: #f0f0f4;
+
+            /* Category colours */
+            --banking: #0088cc;
+            --fintech: #3d1e6d;
+            --blockchain: #e040fb;
+            --payments: #00d4aa;
+            --stablecoin: #5b3a8c;
+            --policy: #6b7280;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--ubyx-purple-deep) 0%, var(--ubyx-purple) 50%, var(--ubyx-purple-light) 100%);
+            border-bottom: none;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(42,17,80,0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .logo span { color: var(--ubyx-teal); }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--ubyx-grey);
+            border-color: var(--ubyx-purple);
+            color: var(--ubyx-purple);
+        }
+
+        .header .btn {
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .header .btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: var(--ubyx-teal);
+            color: var(--ubyx-purple-deep);
+            border-color: var(--ubyx-teal);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #00b894;
+            border-color: #00b894;
+            color: var(--ubyx-purple-deep);
+        }
+
+        .header .btn-primary {
+            background: var(--ubyx-teal);
+            color: var(--ubyx-purple-deep);
+            border-color: var(--ubyx-teal);
+        }
+
+        .header .btn-primary:hover {
+            background: #00b894;
+            border-color: #00b894;
+        }
+
+        /* Layout */
+        .main-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--ubyx-grey);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .filter-item:hover { background: rgba(61,30,109,0.05); }
+
+        .filter-item input[type="checkbox"] {
+            accent-color: var(--ubyx-purple);
+            width: 15px;
+            height: 15px;
+        }
+
+        .filter-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .view-btn {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            color: var(--text-muted);
+        }
+
+        .view-btn.active {
+            background: var(--ubyx-purple);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .ubyx-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .ubyx-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text);
+        }
+
+        .ubyx-badge {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .ubyx-badge.attending {
+            background: var(--ubyx-teal);
+            color: var(--ubyx-purple-deep);
+        }
+
+        .ubyx-badge.speaking {
+            background: var(--ubyx-magenta);
+            color: #fff;
+        }
+
+        .ubyx-badge.speaking-detail {
+            background: var(--ubyx-magenta);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 10px;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: var(--bg);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .month-nav h2 {
+            font-size: 22px;
+            font-weight: 600;
+            min-width: 200px;
+            text-align: center;
+            color: var(--ubyx-purple-deep);
+        }
+
+        .nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--ubyx-purple);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--ubyx-purple);
+            background: rgba(61,30,109,0.05);
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .stats-bar strong { color: var(--ubyx-purple); }
+
+        /* Calendar Grid View */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .calendar-day-header {
+            background: var(--ubyx-grey);
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            background: #fff;
+            min-height: 100px;
+            padding: 6px;
+            position: relative;
+        }
+
+        .calendar-day.other-month {
+            background: var(--ubyx-grey);
+        }
+
+        .calendar-day.other-month .day-number {
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .calendar-day.today {
+            background: rgba(61,30,109,0.04);
+        }
+
+        .calendar-day.today .day-number {
+            background: var(--ubyx-purple);
+            color: #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-number {
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            padding: 2px;
+            color: var(--text);
+        }
+
+        .day-event {
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: transform 0.1s;
+            position: relative;
+        }
+
+        .day-event:hover {
+            transform: scale(1.02);
+            z-index: 10;
+            white-space: normal;
+        }
+
+        .day-event.multi-start {
+            border-radius: 3px 0 0 3px;
+            margin-right: -6px;
+        }
+
+        .day-event.multi-mid {
+            border-radius: 0;
+            margin-left: -6px;
+            margin-right: -6px;
+        }
+
+        .day-event.multi-end {
+            border-radius: 0 3px 3px 0;
+            margin-left: -6px;
+        }
+
+        /* Timeline View */
+        .timeline-view {
+            display: none;
+        }
+
+        .timeline-month {
+            margin-bottom: 32px;
+        }
+
+        .timeline-month-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ubyx-purple);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--ubyx-grey);
+        }
+
+        .timeline-events {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .event-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card:hover {
+            border-color: var(--ubyx-purple-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(61,30,109,0.1);
+        }
+
+        .event-card.ubyx-attending {
+            border-left: 3px solid var(--ubyx-teal);
+        }
+
+        .event-card.ubyx-speaking {
+            border-left: 3px solid var(--ubyx-magenta);
+        }
+
+        .event-date-block {
+            text-align: center;
+            min-width: 60px;
+            padding: 8px;
+            background: var(--ubyx-grey);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .event-date-month {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .event-date-day {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--ubyx-purple);
+            line-height: 1.2;
+        }
+
+        .event-date-range {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ubyx-slate);
+        }
+
+        .event-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .event-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .event-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .event-tag {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-banking { background: rgba(0,136,204,0.1); color: var(--banking); }
+        .tag-fintech { background: rgba(61,30,109,0.1); color: var(--fintech); }
+        .tag-blockchain { background: rgba(224,64,251,0.1); color: var(--blockchain); }
+        .tag-payments { background: rgba(0,212,170,0.15); color: #009b7d; }
+        .tag-stablecoin { background: rgba(91,58,140,0.1); color: var(--stablecoin); }
+        .tag-policy { background: rgba(107,114,128,0.1); color: var(--policy); }
+
+        .event-website {
+            margin-top: 8px;
+        }
+
+        .event-website a {
+            color: var(--ubyx-cyan);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .event-website a:hover { text-decoration: underline; color: var(--ubyx-purple); }
+
+        /* List View */
+        .list-view { display: none; }
+
+        .list-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border);
+            background: var(--ubyx-grey);
+            position: sticky;
+            top: 0;
+        }
+
+        .list-table td {
+            padding: 10px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+            color: var(--text);
+        }
+
+        .list-table tr:hover td {
+            background: rgba(61,30,109,0.02);
+        }
+
+        .list-event-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--ubyx-slate);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,30,46,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(42,17,80,0.2);
+        }
+
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover { color: var(--ubyx-purple); }
+
+        .modal h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            padding-right: 30px;
+            color: var(--ubyx-purple-deep);
+        }
+
+        .modal-detail {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .modal-detail-label {
+            color: var(--text-muted);
+            min-width: 80px;
+            font-weight: 500;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Add Event Modal */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ubyx-purple-light);
+            box-shadow: 0 0 0 3px rgba(61,30,109,0.1);
+        }
+
+        .form-group textarea { min-height: 60px; resize: vertical; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            text-transform: none;
+            letter-spacing: 0;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Search */
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 32px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--ubyx-purple-light);
+            box-shadow: 0 0 0 3px rgba(61,30,109,0.1);
+        }
+
+        .search-box::before {
+            content: "\1F50D";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+            .calendar-grid { font-size: 11px; }
+            .calendar-day { min-height: 60px; }
+        }
+
+        /* Edit mode */
+        .edit-controls {
+            background: rgba(224,64,251,0.06);
+            border: 1px solid var(--ubyx-magenta);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: var(--ubyx-magenta);
+            display: none;
+        }
+
+        .edit-controls.active { display: block; }
+
+        /* No events message */
+        .no-events {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .no-events h3 { margin-bottom: 8px; color: var(--text); }
+
+        /* Year navigation */
+        .year-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .year-tab {
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .year-tab.active {
+            background: var(--ubyx-purple);
+            color: #fff;
+            border-color: var(--ubyx-purple);
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <div>
+            <div class="logo">UBYX <span>Events</span></div>
+            <div class="header-subtitle">Industry Events Calendar 2026</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button class="btn" onclick="exportCalendar()">Export CSV</button>
+        <button class="btn btn-primary" onclick="openAddModal()">+ Add Event</button>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Search</div>
+            <div class="search-box">
+                <input type="text" placeholder="Search events..." id="searchInput" oninput="filterEvents()">
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">View</div>
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="setView('timeline')" id="view-timeline">Timeline</button>
+                <button class="view-btn" onclick="setView('calendar')" id="view-calendar">Calendar</button>
+                <button class="view-btn" onclick="setView('list')" id="view-list">List</button>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">Categories</div>
+            <div class="filter-group" id="categoryFilters">
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="banking">
+                    <span class="filter-dot" style="background: var(--banking)"></span>
+                    Banking
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="fintech">
+                    <span class="filter-dot" style="background: var(--fintech)"></span>
+                    Fintech
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="blockchain">
+                    <span class="filter-dot" style="background: var(--blockchain)"></span>
+                    Blockchain / Crypto
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="payments">
+                    <span class="filter-dot" style="background: var(--payments)"></span>
+                    Payments
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="stablecoin">
+                    <span class="filter-dot" style="background: var(--stablecoin)"></span>
+                    Stablecoins / Digital Currency
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-category="policy">
+                    <span class="filter-dot" style="background: var(--policy)"></span>
+                    Policy / Regulation
+                </label>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">Ubyx Presence</div>
+            <div class="filter-group">
+                <label class="filter-item">
+                    <input type="checkbox" id="filterAttending" onchange="filterEvents()">
+                    <span class="ubyx-badge attending">Attending</span>
+                    Only attending
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" id="filterSpeaking" onchange="filterEvents()">
+                    <span class="ubyx-badge speaking">Speaking</span>
+                    Only speaking
+                </label>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">Region</div>
+            <div class="filter-group" id="regionFilters">
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="europe">
+                    Europe
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="north-america">
+                    North America
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="asia">
+                    Asia Pacific
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="middle-east">
+                    Middle East
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="latam">
+                    Latin America
+                </label>
+                <label class="filter-item">
+                    <input type="checkbox" checked onchange="filterEvents()" data-region="africa">
+                    Africa
+                </label>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">Legend</div>
+            <div class="ubyx-legend">
+                <div class="ubyx-legend-item">
+                    <span class="ubyx-badge attending">Attending</span>
+                    Ubyx team attending
+                </div>
+                <div class="ubyx-legend-item">
+                    <span class="ubyx-badge speaking">Speaking</span>
+                    Ubyx speaker slot
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-header">
+            <div class="month-nav" id="monthNav">
+                <button class="nav-btn" onclick="prevMonth()">&larr;</button>
+                <h2 id="currentMonthLabel">January 2025</h2>
+                <button class="nav-btn" onclick="nextMonth()">&rarr;</button>
+            </div>
+            <div class="stats-bar" id="statsBar">
+                <span>Total: <strong id="statTotal">0</strong></span>
+                <span>This month: <strong id="statMonth">0</strong></span>
+                <span>Ubyx attending: <strong id="statAttending">0</strong></span>
+            </div>
+        </div>
+
+        <div class="year-tabs" id="yearTabs">
+            <button class="year-tab active" onclick="setYear(2026)">2026</button>
+            <button class="year-tab" onclick="setYear(2027)">2027</button>
+        </div>
+
+        <!-- Timeline View -->
+        <div class="timeline-view" id="timelineView" style="display: block;"></div>
+
+        <!-- Calendar View -->
+        <div class="calendar-grid" id="calendarView" style="display: none;"></div>
+
+        <!-- List View -->
+        <div class="list-view" id="listView" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- Event Detail Modal -->
+<div class="modal-overlay" id="eventModal">
+    <div class="modal" id="eventModalContent"></div>
+</div>
+
+<!-- Add/Edit Event Modal -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeAddModal()">&times;</button>
+        <h2 id="addModalTitle">Add Event</h2>
+        <form onsubmit="saveEvent(event)">
+            <input type="hidden" id="editEventId" value="">
+            <div class="form-group">
+                <label>Event Name *</label>
+                <input type="text" id="formName" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Start Date *</label>
+                    <input type="date" id="formStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label>End Date *</label>
+                    <input type="date" id="formEndDate" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>City *</label>
+                    <input type="text" id="formCity" required>
+                </div>
+                <div class="form-group">
+                    <label>Country *</label>
+                    <input type="text" id="formCountry" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Venue</label>
+                <input type="text" id="formVenue">
+            </div>
+            <div class="form-group">
+                <label>Website URL</label>
+                <input type="url" id="formWebsite">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="formDesc"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Categories</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="banking" class="form-cat"> Banking</label>
+                    <label><input type="checkbox" value="fintech" class="form-cat"> Fintech</label>
+                    <label><input type="checkbox" value="blockchain" class="form-cat"> Blockchain</label>
+                    <label><input type="checkbox" value="payments" class="form-cat"> Payments</label>
+                    <label><input type="checkbox" value="stablecoin" class="form-cat"> Stablecoins</label>
+                    <label><input type="checkbox" value="policy" class="form-cat"> Policy</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Region</label>
+                <select id="formRegion">
+                    <option value="europe">Europe</option>
+                    <option value="north-america">North America</option>
+                    <option value="asia">Asia Pacific</option>
+                    <option value="middle-east">Middle East</option>
+                    <option value="latam">Latin America</option>
+                    <option value="africa">Africa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Ubyx Presence</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="formAttending" onchange="toggleAttendeeField()"> Attending</label>
+                    <label><input type="checkbox" id="formSpeaking" onchange="toggleSpeakerField()"> Speaking</label>
+                </div>
+            </div>
+            <div class="form-group" id="attendeeFieldGroup" style="display: none;">
+                <label>Attendee Name</label>
+                <input type="text" id="formAttendee" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="form-group" id="speakerFieldGroup" style="display: none;">
+                <label>Speaker Name</label>
+                <input type="text" id="formSpeaker" placeholder="e.g., John Smith">
+            </div>
+            <div class="form-group">
+                <label>Ubyx Notes (internal)</label>
+                <textarea id="formNotes" placeholder="e.g., Booth #42, Meeting with Circle team, etc."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Save Event</button>
+                <button type="button" class="btn" onclick="closeAddModal()">Cancel</button>
+                <button type="button" class="btn" id="deleteEventBtn" onclick="deleteEvent()" style="display:none; margin-left: auto; color: #dc2626; border-color: #dc2626;">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// ========== EVENT DATA ==========
+const DEFAULT_EVENTS = [
+    // JANUARY
+    {
+        id: 1, name: "World Economic Forum (Davos) 2026",
+        startDate: "2026-01-19", endDate: "2026-01-23",
+        city: "Davos-Klosters", country: "Switzerland", venue: "Congress Centre",
+        website: "https://www.weforum.org/meetings/world-economic-forum-annual-meeting-2026/",
+        description: "Annual gathering of global leaders in government, business, and civil society addressing the world's most pressing issues, including digital finance and economic policy.",
+        categories: ["policy", "fintech"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // FEBRUARY
+    {
+        id: 2, name: "FinovateEurope 2026",
+        startDate: "2026-02-10", endDate: "2026-02-11",
+        city: "London", country: "UK", venue: "InterContinental London - The O2",
+        website: "https://informaconnect.com/finovateeurope/",
+        description: "Leading fintech conference showcasing cutting-edge financial technology through live seven-minute demos, bringing together 1,000+ decision-makers including 600+ C-suite executives.",
+        categories: ["fintech", "banking"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 3, name: "Consensus Hong Kong 2026",
+        startDate: "2026-02-10", endDate: "2026-02-12",
+        city: "Hong Kong", country: "China", venue: "Hong Kong Convention and Exhibition Centre",
+        website: "https://consensus-hongkong.coindesk.com/",
+        description: "CoinDesk's flagship Asia event bringing together thousands of attendees from 100+ countries for crypto, blockchain, and digital asset discussions.",
+        categories: ["blockchain", "stablecoin"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 4, name: "ETHDenver 2026",
+        startDate: "2026-02-17", endDate: "2026-02-21",
+        city: "Denver", country: "USA", venue: "Stockyards Event Center",
+        website: "https://ethdenver.com/",
+        description: "The world's largest and longest-running Ethereum hackathon and community innovation festival, with BUIDLHub running Feb 18-21.",
+        categories: ["blockchain"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // MARCH
+    {
+        id: 5, name: "MPE (Merchant Payments Ecosystem) 2026",
+        startDate: "2026-03-17", endDate: "2026-03-19",
+        city: "Berlin", country: "Germany", venue: "InterContinental Hotel Berlin",
+        website: "https://www.merchantpaymentsecosystem.com/",
+        description: "Europe's home for merchant payments, bringing together 1,500+ professionals from across the merchant payments value chain.",
+        categories: ["payments"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 6, name: "Central Bank Payments Conference 2026",
+        startDate: "2026-03-23", endDate: "2026-03-25",
+        city: "Istanbul", country: "Turkey", venue: "",
+        website: "https://currencyresearch.com/the-central-bank-payments-conference/",
+        description: "Currency Research conference convening central bankers and payment system operators to discuss payment infrastructure modernisation and digital currencies.",
+        categories: ["payments", "policy", "stablecoin"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 7, name: "Digital Asset Summit NYC 2026",
+        startDate: "2026-03-24", endDate: "2026-03-26",
+        city: "New York", country: "USA", venue: "Javits Center North",
+        website: "https://blockworks.com/event/digital-asset-summit-nyc-2026",
+        description: "Blockworks' premier institutional digital asset conference bringing together global sovereigns, endowments, pensions, family offices, hedge funds, and banks.",
+        categories: ["blockchain", "fintech", "stablecoin"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 8, name: "PAY360 2026",
+        startDate: "2026-03-24", endDate: "2026-03-25",
+        city: "London", country: "UK", venue: "ExCeL London",
+        website: "https://pay360event.com/",
+        description: "The UK's largest dedicated payments conference and exhibition, organized by The Payments Association, bringing together 6,000+ professionals and 200+ speakers.",
+        categories: ["payments", "fintech"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 9, name: "EthCC [9] 2026",
+        startDate: "2026-03-30", endDate: "2026-04-02",
+        city: "Cannes", country: "France", venue: "Palais des Festivals",
+        website: "https://ethcc.io/",
+        description: "The largest annual Ethereum-focused conference in Europe, with institutional focus for the 2026 edition in Cannes.",
+        categories: ["blockchain"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // APRIL
+    {
+        id: 10, name: "Paris Blockchain Week 2026",
+        startDate: "2026-04-15", endDate: "2026-04-16",
+        city: "Paris", country: "France", venue: "Carrousel du Louvre",
+        website: "https://www.parisblockchainweek.com/",
+        description: "Europe's flagship blockchain gathering where institutions and digital assets meet, with an invitation-only event at Chateau de Versailles.",
+        categories: ["blockchain", "stablecoin"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 11, name: "Bitcoin Conference 2026",
+        startDate: "2026-04-27", endDate: "2026-04-29",
+        city: "Las Vegas", country: "USA", venue: "The Venetian",
+        website: "https://b.tc/conference/2026",
+        description: "The world's largest annual Bitcoin conference, expecting 35,000+ attendees, organized by BTC Inc / Bitcoin Magazine.",
+        categories: ["blockchain"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 12, name: "TOKEN2049 Dubai 2026",
+        startDate: "2026-04-29", endDate: "2026-04-30",
+        city: "Dubai", country: "UAE", venue: "Madinat Jumeirah",
+        website: "https://www.token2049.com/dubai",
+        description: "Premier global crypto conference bringing together 15,000+ attendees from 4,000+ companies and 160 countries, with TOKEN2049 Week running Apr 27 - May 3.",
+        categories: ["blockchain", "stablecoin"], region: "middle-east",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // MAY
+    {
+        id: 13, name: "Consensus Miami 2026",
+        startDate: "2026-05-05", endDate: "2026-05-07",
+        city: "Miami", country: "USA", venue: "Miami Beach Convention Center",
+        website: "https://consensus.coindesk.com/",
+        description: "CoinDesk's flagship Americas crypto and Web3 conference, bringing together 20,000+ attendees covering the future of finance and web3.",
+        categories: ["blockchain", "stablecoin"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 14, name: "Payments Canada Summit 2026",
+        startDate: "2026-05-05", endDate: "2026-05-07",
+        city: "Toronto", country: "Canada", venue: "",
+        website: "https://www.payments.ca/2026-payments-canada-summit",
+        description: "Canada's premier payments event bringing together 1,900+ delegates and 300+ speakers to discuss real-time payments, AI, fraud, and digital transformation.",
+        categories: ["payments", "banking"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 15, name: "Dubai FinTech Summit 2026",
+        startDate: "2026-05-11", endDate: "2026-05-12",
+        city: "Dubai", country: "UAE", venue: "Madinat Jumeirah",
+        website: "https://dubaifintechsummit.com/",
+        description: "Organized by DIFC, this summit brings together 10,000+ industry leaders and visionaries for cross-sector collaborations and exclusive deal-flow.",
+        categories: ["fintech", "payments"], region: "middle-east",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 16, name: "CB+DC Conference Kuala Lumpur 2026",
+        startDate: "2026-05-12", endDate: "2026-05-14",
+        city: "Kuala Lumpur", country: "Malaysia", venue: "Sasana Kijang",
+        website: "https://www.cbdc-conference.com/",
+        description: "Spring edition of the CB+DC Conference focused on CBDC implementation, stablecoin governance, and digital currency policy for central bankers and regulators.",
+        categories: ["stablecoin", "policy"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 17, name: "Seamless Middle East 2026",
+        startDate: "2026-05-12", endDate: "2026-05-14",
+        city: "Dubai", country: "UAE", venue: "Dubai World Trade Centre",
+        website: "https://seamlessxtra.com/events/",
+        description: "The Middle East's largest commerce, fintech, and payments event featuring 25,000+ attendees, 750+ exhibitors, and 800+ expert speakers.",
+        categories: ["fintech", "payments"], region: "middle-east",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 18, name: "OMFIF Digital Money Summit 2026",
+        startDate: "2026-05-19", endDate: "2026-05-20",
+        city: "London", country: "UK", venue: "",
+        website: "https://www.omfif.org/dms2026/",
+        description: "OMFIF's flagship event for central bankers, regulators, financial services, and technology stakeholders to discuss digital money, CBDCs, and stablecoins.",
+        categories: ["stablecoin", "policy", "banking"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 19, name: "Stablecon EMEA 2026",
+        startDate: "2026-05-19", endDate: "2026-05-20",
+        city: "Amsterdam", country: "Netherlands", venue: "",
+        website: "https://stablecon.com/",
+        description: "Stablecon's dedicated EMEA edition, expanding the stablecoin conference series into Europe, Middle East, and Africa markets.",
+        categories: ["stablecoin", "payments"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // JUNE
+    {
+        id: 20, name: "Money20/20 Europe 2026",
+        startDate: "2026-06-02", endDate: "2026-06-04",
+        city: "Amsterdam", country: "Netherlands", venue: "RAI Amsterdam",
+        website: "https://europe.money2020.com/",
+        description: "Europe's leading fintech and payments conference with 400+ sessions, 100+ demos, and 10,000+ meetings on AI-driven payments, embedded finance, and regulatory tech.",
+        categories: ["fintech", "payments", "banking"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 21, name: "Stablecoin Conference LatAm 2026",
+        startDate: "2026-06-15", endDate: "2026-06-16",
+        city: "Mexico City", country: "Mexico", venue: "World Trade Center",
+        website: "https://stablecoinconferencelatam.com/",
+        description: "Latin America's major stablecoin conference organized by Bitso Business, bringing together global experts on stablecoin payments and regional adoption.",
+        categories: ["stablecoin", "payments"], region: "latam",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 22, name: "EBAday 2026",
+        startDate: "2026-06-16", endDate: "2026-06-17",
+        city: "Copenhagen", country: "Denmark", venue: "Bella Center",
+        website: "https://www.ebaday.com/",
+        description: "Hosted by the Euro Banking Association and Finextra Research, a key European event for transaction banking and payments professionals.",
+        categories: ["banking", "payments"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 23, name: "Point Zero Forum 2026",
+        startDate: "2026-06-22", endDate: "2026-06-24",
+        city: "Zurich", country: "Switzerland", venue: "",
+        website: "https://www.pointzeroforum.com/",
+        description: "Annual forum convening 2,000+ central bankers, regulators, policymakers, and industry leaders to align policy, finance, and technology roadmaps.",
+        categories: ["policy", "banking", "stablecoin"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 24, name: "Stable Summit Cannes 2026",
+        startDate: "2026-06-27", endDate: "2026-06-28",
+        city: "Cannes", country: "France", venue: "",
+        website: "https://www.stablesummit.xyz/",
+        description: "Global technical conference focused exclusively on stablecoins, featuring hands-on learning and deep dives into stablecoin infrastructure.",
+        categories: ["stablecoin"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // JULY
+    {
+        id: 25, name: "Nigeria Stablecoin Summit 2026",
+        startDate: "2026-07-30", endDate: "2026-07-30",
+        city: "Lagos", country: "Nigeria", venue: "",
+        website: "https://summit.afristablecoin.org/",
+        description: "Africa's stablecoin conference focused on driving adoption of a borderless digital economy in Nigeria and West Africa.",
+        categories: ["stablecoin"], region: "africa",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // SEPTEMBER
+    {
+        id: 26, name: "FinovateFall 2026",
+        startDate: "2026-09-09", endDate: "2026-09-11",
+        city: "New York", country: "USA", venue: "Marriott Marquis Times Square",
+        website: "https://informaconnect.com/finovatefall/",
+        description: "The world's premier fintech showcase in North America, featuring live technology demonstrations from innovative companies.",
+        categories: ["fintech", "banking"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 27, name: "Stablecon USA 2026",
+        startDate: "2026-09-09", endDate: "2026-09-11",
+        city: "Washington, D.C.", country: "USA", venue: "National Harbor Resort",
+        website: "https://stablecon.com/",
+        description: "Dedicated stablecoin and digital finance conference bringing together leading voices from Circle, Coinbase, Ripple, Visa, and policymakers in the nation's capital.",
+        categories: ["stablecoin", "payments", "policy"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 28, name: "Sibos 2026",
+        startDate: "2026-09-28", endDate: "2026-10-01",
+        city: "Miami", country: "USA", venue: "Miami Beach Convention Center",
+        website: "https://www.sibos.com/",
+        description: "The world's premier financial services event organized by SWIFT, making its first visit to Miami.",
+        categories: ["banking", "payments", "fintech"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 29, name: "Korea Blockchain Week 2026",
+        startDate: "2026-09-29", endDate: "2026-10-01",
+        city: "Seoul", country: "South Korea", venue: "Walkerhill Hotels & Resorts",
+        website: "https://koreablockchainweek.com/",
+        description: "Korea's premier blockchain event with Upbit as main sponsor, featuring a private institutional forum for policymakers and financial institutions.",
+        categories: ["blockchain"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // OCTOBER
+    {
+        id: 30, name: "DC Fintech Week 2026",
+        startDate: "2026-10-05", endDate: "2026-10-09",
+        city: "Washington, D.C.", country: "USA", venue: "",
+        website: "https://dcfintechweek.org/",
+        description: "Free public event uniting fintech leaders, regulators, and policymakers to discuss the future of finance, blockchain, and policy.",
+        categories: ["fintech", "policy", "blockchain"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 31, name: "TOKEN2049 Singapore 2026",
+        startDate: "2026-10-07", endDate: "2026-10-08",
+        city: "Singapore", country: "Singapore", venue: "Marina Bay Sands",
+        website: "https://www.token2049.com/",
+        description: "The world's largest crypto event by attendance (25,000+ attendees, 7,000+ companies), with TOKEN2049 Week of side events surrounding the main conference.",
+        categories: ["blockchain", "stablecoin"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 32, name: "Money20/20 USA 2026",
+        startDate: "2026-10-18", endDate: "2026-10-21",
+        city: "Las Vegas", country: "USA", venue: "The Venetian Resort",
+        website: "https://us.money2020.com/",
+        description: "The world's largest fintech event, where senior leaders from banks, payments, tech, retail, and startups gather to move fintech forward.",
+        categories: ["fintech", "payments", "banking"], region: "north-america",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 33, name: "CB+DC Conference Amsterdam 2026",
+        startDate: "2026-10-27", endDate: "2026-10-29",
+        city: "Amsterdam", country: "Netherlands", venue: "Novotel Amsterdam City",
+        website: "https://www.cbdc-conference.com/",
+        description: "Fall edition of the CB+DC Conference focused on CBDC implementation, stablecoin regulation, and digital currency infrastructure for central bankers.",
+        categories: ["stablecoin", "policy"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+
+    // NOVEMBER
+    {
+        id: 34, name: "Hong Kong FinTech Week 2026",
+        startDate: "2026-11-02", endDate: "2026-11-06",
+        city: "Hong Kong", country: "China", venue: "Hong Kong Convention and Exhibition Centre",
+        website: "https://www.fintechweek.hk/",
+        description: "Major fintech gathering bringing together tens of thousands of attendees, hundreds of speakers, and hundreds of exhibitors across Hong Kong.",
+        categories: ["fintech", "blockchain", "payments"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 35, name: "Web Summit 2026",
+        startDate: "2026-11-09", endDate: "2026-11-12",
+        city: "Lisbon", country: "Portugal", venue: "Altice Arena / Feira Internacional de Lisboa",
+        website: "https://websummit.com/",
+        description: "The world's largest technology conference, attracting 70,000+ attendees including policymakers, heads of state, and tech company leaders.",
+        categories: ["fintech", "blockchain"], region: "europe",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 36, name: "Africa Stablecoin Summit 2026",
+        startDate: "2026-11-12", endDate: "2026-11-13",
+        city: "Johannesburg", country: "South Africa", venue: "",
+        website: "https://africastablecoinsummit.io/",
+        description: "Themed around harnessing stablecoins for Africa's economic resilience, focusing on digital money adoption and financial inclusion across the continent.",
+        categories: ["stablecoin"], region: "africa",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    },
+    {
+        id: 37, name: "Singapore FinTech Festival 2026",
+        startDate: "2026-11-18", endDate: "2026-11-20",
+        city: "Singapore", country: "Singapore", venue: "Singapore EXPO",
+        website: "https://www.fintechfestival.sg/",
+        description: "Organized by MAS and GFTN, the world's largest fintech event in Asia, a global gathering of policy, finance, and technology leaders.",
+        categories: ["fintech", "payments", "banking", "stablecoin"], region: "asia",
+        ubyx: { attending: false, attendee: "", speaking: false, speaker: "", notes: "" }
+    }
+];
+
+// ========== STATE ==========
+let events = [];
+let currentView = 'timeline';
+let currentYear = 2026;
+let currentMonth = 0; // 0-indexed for calendar view
+
+// ========== INIT ==========
+function init() {
+    const saved = localStorage.getItem('ubyx-events-v2');
+    if (saved) {
+        events = JSON.parse(saved);
+        // Migrate: ensure all events have the speaker and attendee fields
+        events.forEach(e => {
+            if (e.ubyx && typeof e.ubyx.speaker === 'undefined') {
+                e.ubyx.speaker = '';
+            }
+            if (e.ubyx && typeof e.ubyx.attendee === 'undefined') {
+                e.ubyx.attendee = '';
+            }
+        });
+    } else {
+        events = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+    }
+    renderAll();
+}
+
+function saveToStorage() {
+    localStorage.setItem('ubyx-events-v2', JSON.stringify(events));
+}
+
+// ========== FILTERING ==========
+function getActiveCategories() {
+    const checks = document.querySelectorAll('#categoryFilters input[type="checkbox"]');
+    return Array.from(checks).filter(c => c.checked).map(c => c.dataset.category);
+}
+
+function getActiveRegions() {
+    const checks = document.querySelectorAll('#regionFilters input[type="checkbox"]');
+    return Array.from(checks).filter(c => c.checked).map(c => c.dataset.region);
+}
+
+function getFilteredEvents() {
+    const cats = getActiveCategories();
+    const regions = getActiveRegions();
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const onlyAttending = document.getElementById('filterAttending').checked;
+    const onlySpeaking = document.getElementById('filterSpeaking').checked;
+
+    return events.filter(e => {
+        const startYear = new Date(e.startDate).getFullYear();
+        const endYear = new Date(e.endDate).getFullYear();
+        if (startYear !== currentYear && endYear !== currentYear) return false;
+
+        if (!e.categories.some(c => cats.includes(c))) return false;
+        if (!regions.includes(e.region)) return false;
+
+        if (onlyAttending && !e.ubyx.attending) return false;
+        if (onlySpeaking && !e.ubyx.speaking) return false;
+
+        if (search) {
+            const haystack = `${e.name} ${e.city} ${e.country} ${e.description} ${e.venue}`.toLowerCase();
+            if (!haystack.includes(search)) return false;
+        }
+
+        return true;
+    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+}
+
+function filterEvents() {
+    renderAll();
+}
+
+// ========== VIEWS ==========
+function setView(view) {
+    currentView = view;
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`view-${view}`).classList.add('active');
+
+    document.getElementById('timelineView').style.display = view === 'timeline' ? 'block' : 'none';
+    document.getElementById('calendarView').style.display = view === 'calendar' ? 'grid' : 'none';
+    document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
+
+    document.getElementById('monthNav').style.display = view === 'calendar' ? 'flex' : view === 'timeline' ? 'none' : 'none';
+
+    renderAll();
+}
+
+function setYear(year) {
+    currentYear = year;
+    document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    renderAll();
+}
+
+// ========== RENDER ==========
+function renderAll() {
+    const filtered = getFilteredEvents();
+    updateStats(filtered);
+
+    if (currentView === 'timeline') renderTimeline(filtered);
+    else if (currentView === 'calendar') renderCalendar(filtered);
+    else if (currentView === 'list') renderList(filtered);
+}
+
+function updateStats(filtered) {
+    const now = new Date();
+    const currentMonthNum = now.getMonth();
+    const monthEvents = filtered.filter(e => {
+        const d = new Date(e.startDate);
+        return d.getMonth() === currentMonthNum && d.getFullYear() === now.getFullYear();
+    });
+
+    document.getElementById('statTotal').textContent = filtered.length;
+    document.getElementById('statMonth').textContent = monthEvents.length;
+    document.getElementById('statAttending').textContent = filtered.filter(e => e.ubyx.attending).length;
+}
+
+// ========== TIMELINE VIEW ==========
+function renderTimeline(filtered) {
+    const container = document.getElementById('timelineView');
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-events"><h3>No events found</h3><p>Try adjusting your filters or add a new event.</p></div>';
+        return;
+    }
+
+    const months = {};
+    filtered.forEach(e => {
+        const d = new Date(e.startDate);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        if (!months[key]) months[key] = [];
+        months[key].push(e);
+    });
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    let html = '';
+    Object.keys(months).sort().forEach(key => {
+        const [yr, mo] = key.split('-');
+        html += `<div class="timeline-month">
+            <div class="timeline-month-header">${monthNames[parseInt(mo)-1]} ${yr}</div>
+            <div class="timeline-events">`;
+
+        months[key].forEach(e => {
+            const start = new Date(e.startDate);
+            const end = new Date(e.endDate);
+            const days = Math.ceil((end - start) / (1000*60*60*24)) + 1;
+            const dateRange = days > 1
+                ? `${start.getDate()}-${end.getDate()} ${monthNames[end.getMonth()].slice(0,3)}`
+                : `${start.getDate()} ${monthNames[start.getMonth()].slice(0,3)}`;
+
+            const ubyxClass = e.ubyx.speaking ? 'ubyx-speaking' : e.ubyx.attending ? 'ubyx-attending' : '';
+
+            html += `<div class="event-card ${ubyxClass}" onclick="openEventModal(${e.id})">
+                <div class="event-date-block">
+                    <div class="event-date-month">${monthNames[start.getMonth()].slice(0,3)}</div>
+                    <div class="event-date-day">${start.getDate()}</div>
+                    ${days > 1 ? `<div class="event-date-range">${days} days</div>` : ''}
+                </div>
+                <div class="event-info">
+                    <div class="event-title">
+                        ${e.name}
+                        ${e.ubyx.attending ? `<span class="ubyx-badge attending">Attending${e.ubyx.attendee ? ': ' + e.ubyx.attendee : ''}</span>` : ''}
+                        ${e.ubyx.speaking ? `<span class="ubyx-badge speaking">Speaking${e.ubyx.speaker ? ': ' + e.ubyx.speaker : ''}</span>` : ''}
+                    </div>
+                    <div class="event-meta">
+                        <span>${e.city}, ${e.country}</span>
+                        <span>${formatDateRange(e.startDate, e.endDate)}</span>
+                        ${e.venue ? `<span>${e.venue}</span>` : ''}
+                    </div>
+                    <div class="event-desc">${e.description}</div>
+                    <div class="event-tags">
+                        ${e.categories.map(c => `<span class="event-tag tag-${c}">${c}</span>`).join('')}
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        html += '</div></div>';
+    });
+
+    container.innerHTML = html;
+}
+
+// ========== CALENDAR VIEW ==========
+function renderCalendar(filtered) {
+    const container = document.getElementById('calendarView');
+    const year = currentYear;
+    const month = currentMonth;
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('currentMonthLabel').textContent = `${monthNames[month]} ${year}`;
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startOffset = firstDay.getDay(); // 0=Sun
+    const daysInMonth = lastDay.getDate();
+
+    const today = new Date();
+
+    let html = '';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+        html += `<div class="calendar-day-header">${d}</div>`;
+    });
+
+    // Previous month padding
+    const prevMonthLast = new Date(year, month, 0).getDate();
+    for (let i = startOffset - 1; i >= 0; i--) {
+        const day = prevMonthLast - i;
+        html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+    }
+
+    // This month
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+
+        const dayEvents = filtered.filter(e => {
+            return dateStr >= e.startDate && dateStr <= e.endDate;
+        });
+
+        html += `<div class="calendar-day${isToday ? ' today' : ''}">
+            <div class="day-number">${d}</div>`;
+
+        dayEvents.slice(0, 3).forEach(e => {
+            const color = getCategoryColor(e.categories[0]);
+            const isStart = e.startDate === dateStr;
+            const isEnd = e.endDate === dateStr;
+            const isSingle = isStart && isEnd;
+            let posClass = '';
+            if (!isSingle) {
+                if (isStart) posClass = 'multi-start';
+                else if (isEnd) posClass = 'multi-end';
+                else posClass = 'multi-mid';
+            }
+
+            html += `<div class="day-event ${posClass}" style="background: ${color}22; color: ${color}; border-left: 2px solid ${color};"
+                onclick="event.stopPropagation(); openEventModal(${e.id})"
+                title="${e.name}">
+                ${isStart || isSingle || d === 1 || new Date(dateStr).getDay() === 0 ? e.name : ''}
+            </div>`;
+        });
+
+        if (dayEvents.length > 3) {
+            html += `<div style="font-size:9px; color: var(--text-muted); padding: 1px 4px;">+${dayEvents.length - 3} more</div>`;
+        }
+
+        html += '</div>';
+    }
+
+    // Next month padding
+    const totalCells = startOffset + daysInMonth;
+    const remaining = (7 - (totalCells % 7)) % 7;
+    for (let i = 1; i <= remaining; i++) {
+        html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
+    }
+
+    container.innerHTML = html;
+}
+
+function prevMonth() {
+    if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+        updateYearTabs();
+    } else {
+        currentMonth--;
+    }
+    renderAll();
+}
+
+function nextMonth() {
+    if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+        updateYearTabs();
+    } else {
+        currentMonth++;
+    }
+    renderAll();
+}
+
+function updateYearTabs() {
+    document.querySelectorAll('.year-tab').forEach(t => {
+        t.classList.toggle('active', parseInt(t.textContent) === currentYear);
+    });
+}
+
+// ========== LIST VIEW ==========
+function renderList(filtered) {
+    const container = document.getElementById('listView');
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-events"><h3>No events found</h3></div>';
+        return;
+    }
+
+    let html = `<table class="list-table">
+        <thead><tr>
+            <th>Event</th>
+            <th>Dates</th>
+            <th>Location</th>
+            <th>Categories</th>
+            <th>Ubyx</th>
+            <th></th>
+        </tr></thead><tbody>`;
+
+    filtered.forEach(e => {
+        html += `<tr style="cursor: pointer;" onclick="openEventModal(${e.id})">
+            <td><div class="list-event-name">
+                ${e.ubyx.speaking ? '<span class="ubyx-badge speaking">S</span>' : e.ubyx.attending ? '<span class="ubyx-badge attending">A</span>' : ''}
+                ${e.name}
+            </div></td>
+            <td style="white-space: nowrap;">${formatDateRange(e.startDate, e.endDate)}</td>
+            <td>${e.city}, ${e.country}</td>
+            <td>${e.categories.map(c => `<span class="event-tag tag-${c}">${c}</span>`).join(' ')}</td>
+            <td>${e.ubyx.attending ? `Attending${e.ubyx.attendee ? ' (' + e.ubyx.attendee + ')' : ''}` : ''}${e.ubyx.speaking ? ` Speaking${e.ubyx.speaker ? ' (' + e.ubyx.speaker + ')' : ''}` : ''}</td>
+            <td><button class="btn" onclick="event.stopPropagation(); openEditModal(${e.id})" style="padding: 4px 8px; font-size: 11px;">Edit</button></td>
+        </tr>`;
+    });
+
+    html += '</tbody></table>';
+    container.innerHTML = html;
+}
+
+// ========== MODALS ==========
+function openEventModal(id) {
+    const e = events.find(ev => ev.id === id);
+    if (!e) return;
+
+    const start = new Date(e.startDate);
+    const end = new Date(e.endDate);
+    const days = Math.ceil((end - start) / (1000*60*60*24)) + 1;
+
+    const modal = document.getElementById('eventModalContent');
+    modal.innerHTML = `
+        <button class="modal-close" onclick="closeEventModal()">&times;</button>
+        <h2>${e.name}
+            ${e.ubyx.attending ? '<span class="ubyx-badge attending" style="font-size:11px;">Attending</span>' : ''}
+            ${e.ubyx.speaking ? '<span class="ubyx-badge speaking" style="font-size:11px;">Speaking</span>' : ''}
+        </h2>
+        <div class="modal-detail"><span class="modal-detail-label">Dates:</span> ${formatDateRange(e.startDate, e.endDate)} (${days} day${days > 1 ? 's' : ''})</div>
+        <div class="modal-detail"><span class="modal-detail-label">Location:</span> ${e.city}, ${e.country}</div>
+        ${e.venue ? `<div class="modal-detail"><span class="modal-detail-label">Venue:</span> ${e.venue}</div>` : ''}
+        <div class="modal-detail"><span class="modal-detail-label">Categories:</span> ${e.categories.map(c => `<span class="event-tag tag-${c}">${c}</span>`).join(' ')}</div>
+        ${e.ubyx.attending && e.ubyx.attendee ? `<div class="modal-detail"><span class="modal-detail-label">Attendee:</span> <strong style="color: #009b7d;">${e.ubyx.attendee}</strong></div>` : ''}
+        ${e.ubyx.speaking && e.ubyx.speaker ? `<div class="modal-detail"><span class="modal-detail-label">Speaker:</span> <strong style="color: var(--ubyx-magenta);">${e.ubyx.speaker}</strong></div>` : ''}
+        <p style="margin-top: 16px; line-height: 1.6; color: var(--text-muted);">${e.description}</p>
+        ${e.ubyx.notes ? `<div style="margin-top: 16px; padding: 12px; background: rgba(61,30,109,0.05); border-radius: 8px; border: 1px solid rgba(61,30,109,0.12);">
+            <strong style="color: var(--ubyx-purple); font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Ubyx Notes</strong>
+            <p style="margin-top: 4px; font-size: 13px;">${e.ubyx.notes}</p>
+        </div>` : ''}
+        ${e.website ? `<div class="event-website" style="margin-top: 16px;"><a href="${e.website}" target="_blank">${e.website}</a></div>` : ''}
+        <div class="modal-actions">
+            <button class="btn btn-primary" onclick="closeEventModal(); openEditModal(${e.id});">Edit Event</button>
+            <button class="btn" onclick="toggleUbyxStatus(${e.id}, 'attending')">${e.ubyx.attending ? 'Remove Attending' : 'Mark as Attending'}</button>
+            ${e.ubyx.attending ? `<button class="btn" onclick="openAttendeeModal(${e.id})" style="color: #009b7d; border-color: var(--ubyx-teal);">Change Attendee</button>` : ''}
+            <button class="btn" onclick="toggleUbyxStatus(${e.id}, 'speaking')">${e.ubyx.speaking ? 'Remove Speaking' : 'Mark as Speaking'}</button>
+            ${e.ubyx.speaking ? `<button class="btn" onclick="openSpeakerModal(${e.id})" style="color: var(--ubyx-magenta); border-color: var(--ubyx-magenta);">Change Speaker</button>` : ''}
+        </div>`;
+
+    document.getElementById('eventModal').classList.add('active');
+}
+
+function closeEventModal() {
+    document.getElementById('eventModal').classList.remove('active');
+}
+
+function toggleUbyxStatus(id, type) {
+    const e = events.find(ev => ev.id === id);
+    if (e) {
+        if (type === 'speaking' && !e.ubyx.speaking) {
+            // Turning speaking ON — show speaker selection
+            openSpeakerModal(id);
+            return;
+        }
+        if (type === 'speaking' && e.ubyx.speaking) {
+            // Turning speaking OFF — clear the speaker
+            e.ubyx.speaker = '';
+        }
+        if (type === 'attending' && !e.ubyx.attending) {
+            // Turning attending ON — show attendee selection
+            openAttendeeModal(id);
+            return;
+        }
+        if (type === 'attending' && e.ubyx.attending) {
+            // Turning attending OFF — clear the attendee
+            e.ubyx.attendee = '';
+        }
+        e.ubyx[type] = !e.ubyx[type];
+        saveToStorage();
+        openEventModal(id);
+        renderAll();
+    }
+}
+
+function openSpeakerModal(eventId) {
+    const e = events.find(ev => ev.id === eventId);
+    if (!e) return;
+
+    const modal = document.getElementById('eventModalContent');
+    modal.innerHTML = `
+        <button class="modal-close" onclick="closeEventModal()">&times;</button>
+        <h2 style="margin-bottom: 8px;">Select Speaker</h2>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Choose which Ubyx team member is speaking at <strong>${e.name}</strong></p>
+        <div class="form-group">
+            <label>Speaker Name</label>
+            <input type="text" id="speakerNameInput" placeholder="Enter speaker name..." value="${e.ubyx.speaker || ''}" style="width:100%; padding: 10px 14px; font-size: 15px;">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="confirmSpeaker(${eventId})">Confirm Speaker</button>
+            <button class="btn" onclick="openEventModal(${eventId})">Cancel</button>
+        </div>
+    `;
+
+    document.getElementById('eventModal').classList.add('active');
+    setTimeout(() => {
+        const input = document.getElementById('speakerNameInput');
+        if (input) input.focus();
+    }, 100);
+}
+
+function confirmSpeaker(eventId) {
+    const e = events.find(ev => ev.id === eventId);
+    if (!e) return;
+
+    const speakerName = document.getElementById('speakerNameInput').value.trim();
+    if (!speakerName) {
+        alert('Please enter a speaker name.');
+        return;
+    }
+
+    e.ubyx.speaking = true;
+    e.ubyx.speaker = speakerName;
+    saveToStorage();
+    openEventModal(eventId);
+    renderAll();
+}
+
+function openAttendeeModal(eventId) {
+    const e = events.find(ev => ev.id === eventId);
+    if (!e) return;
+
+    const modal = document.getElementById('eventModalContent');
+    modal.innerHTML = `
+        <button class="modal-close" onclick="closeEventModal()">&times;</button>
+        <h2 style="margin-bottom: 8px;">Select Attendee</h2>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Choose which Ubyx team member is attending <strong>${e.name}</strong></p>
+        <div class="form-group">
+            <label>Attendee Name</label>
+            <input type="text" id="attendeeNameInput" placeholder="Enter attendee name..." value="${e.ubyx.attendee || ''}" style="width:100%; padding: 10px 14px; font-size: 15px;">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="confirmAttendee(${eventId})">Confirm Attendee</button>
+            <button class="btn" onclick="openEventModal(${eventId})">Cancel</button>
+        </div>
+    `;
+
+    document.getElementById('eventModal').classList.add('active');
+    setTimeout(() => {
+        const input = document.getElementById('attendeeNameInput');
+        if (input) input.focus();
+    }, 100);
+}
+
+function confirmAttendee(eventId) {
+    const e = events.find(ev => ev.id === eventId);
+    if (!e) return;
+
+    const attendeeName = document.getElementById('attendeeNameInput').value.trim();
+    if (!attendeeName) {
+        alert('Please enter an attendee name.');
+        return;
+    }
+
+    e.ubyx.attending = true;
+    e.ubyx.attendee = attendeeName;
+    saveToStorage();
+    openEventModal(eventId);
+    renderAll();
+}
+
+function toggleAttendeeField() {
+    const attending = document.getElementById('formAttending').checked;
+    document.getElementById('attendeeFieldGroup').style.display = attending ? 'block' : 'none';
+    if (!attending) document.getElementById('formAttendee').value = '';
+}
+
+function toggleSpeakerField() {
+    const speaking = document.getElementById('formSpeaking').checked;
+    document.getElementById('speakerFieldGroup').style.display = speaking ? 'block' : 'none';
+    if (!speaking) document.getElementById('formSpeaker').value = '';
+}
+
+function openAddModal() {
+    document.getElementById('addModalTitle').textContent = 'Add Event';
+    document.getElementById('editEventId').value = '';
+    document.getElementById('formName').value = '';
+    document.getElementById('formStartDate').value = '';
+    document.getElementById('formEndDate').value = '';
+    document.getElementById('formCity').value = '';
+    document.getElementById('formCountry').value = '';
+    document.getElementById('formVenue').value = '';
+    document.getElementById('formWebsite').value = '';
+    document.getElementById('formDesc').value = '';
+    document.getElementById('formRegion').value = 'europe';
+    document.getElementById('formAttending').checked = false;
+    document.getElementById('formAttendee').value = '';
+    document.getElementById('attendeeFieldGroup').style.display = 'none';
+    document.getElementById('formSpeaking').checked = false;
+    document.getElementById('formSpeaker').value = '';
+    document.getElementById('speakerFieldGroup').style.display = 'none';
+    document.getElementById('formNotes').value = '';
+    document.querySelectorAll('.form-cat').forEach(c => c.checked = false);
+    document.getElementById('deleteEventBtn').style.display = 'none';
+    document.getElementById('addModal').classList.add('active');
+}
+
+function openEditModal(id) {
+    const e = events.find(ev => ev.id === id);
+    if (!e) return;
+
+    document.getElementById('addModalTitle').textContent = 'Edit Event';
+    document.getElementById('editEventId').value = id;
+    document.getElementById('formName').value = e.name;
+    document.getElementById('formStartDate').value = e.startDate;
+    document.getElementById('formEndDate').value = e.endDate;
+    document.getElementById('formCity').value = e.city;
+    document.getElementById('formCountry').value = e.country;
+    document.getElementById('formVenue').value = e.venue || '';
+    document.getElementById('formWebsite').value = e.website || '';
+    document.getElementById('formDesc').value = e.description;
+    document.getElementById('formRegion').value = e.region;
+    document.getElementById('formAttending').checked = e.ubyx.attending;
+    document.getElementById('formAttendee').value = e.ubyx.attendee || '';
+    document.getElementById('attendeeFieldGroup').style.display = e.ubyx.attending ? 'block' : 'none';
+    document.getElementById('formSpeaking').checked = e.ubyx.speaking;
+    document.getElementById('formSpeaker').value = e.ubyx.speaker || '';
+    document.getElementById('speakerFieldGroup').style.display = e.ubyx.speaking ? 'block' : 'none';
+    document.getElementById('formNotes').value = e.ubyx.notes || '';
+    document.querySelectorAll('.form-cat').forEach(c => {
+        c.checked = e.categories.includes(c.value);
+    });
+    document.getElementById('deleteEventBtn').style.display = 'block';
+    document.getElementById('addModal').classList.add('active');
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').classList.remove('active');
+}
+
+function saveEvent(evt) {
+    evt.preventDefault();
+    const editId = document.getElementById('editEventId').value;
+    const cats = Array.from(document.querySelectorAll('.form-cat:checked')).map(c => c.value);
+
+    if (cats.length === 0) {
+        alert('Please select at least one category.');
+        return;
+    }
+
+    const eventData = {
+        name: document.getElementById('formName').value,
+        startDate: document.getElementById('formStartDate').value,
+        endDate: document.getElementById('formEndDate').value,
+        city: document.getElementById('formCity').value,
+        country: document.getElementById('formCountry').value,
+        venue: document.getElementById('formVenue').value,
+        website: document.getElementById('formWebsite').value,
+        description: document.getElementById('formDesc').value,
+        categories: cats,
+        region: document.getElementById('formRegion').value,
+        ubyx: {
+            attending: document.getElementById('formAttending').checked,
+            attendee: document.getElementById('formAttending').checked ? document.getElementById('formAttendee').value.trim() : '',
+            speaking: document.getElementById('formSpeaking').checked,
+            speaker: document.getElementById('formSpeaking').checked ? document.getElementById('formSpeaker').value.trim() : '',
+            notes: document.getElementById('formNotes').value
+        }
+    };
+
+    if (editId) {
+        const idx = events.findIndex(e => e.id === parseInt(editId));
+        if (idx >= 0) {
+            events[idx] = { ...events[idx], ...eventData };
+        }
+    } else {
+        const maxId = events.reduce((max, e) => Math.max(max, e.id), 0);
+        events.push({ id: maxId + 1, ...eventData });
+    }
+
+    saveToStorage();
+    closeAddModal();
+    renderAll();
+}
+
+function deleteEvent() {
+    const editId = document.getElementById('editEventId').value;
+    if (editId && confirm('Are you sure you want to delete this event?')) {
+        events = events.filter(e => e.id !== parseInt(editId));
+        saveToStorage();
+        closeAddModal();
+        renderAll();
+    }
+}
+
+// ========== EXPORT ==========
+function exportCalendar() {
+    const filtered = getFilteredEvents();
+    let csv = 'Name,Start Date,End Date,City,Country,Venue,Categories,Ubyx Attending,Attendee,Ubyx Speaking,Speaker,Website\n';
+    filtered.forEach(e => {
+        csv += `"${e.name}","${e.startDate}","${e.endDate}","${e.city}","${e.country}","${e.venue || ''}","${e.categories.join('; ')}","${e.ubyx.attending}","${e.ubyx.attendee || ''}","${e.ubyx.speaking}","${e.ubyx.speaker || ''}","${e.website || ''}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ubyx-events-${currentYear}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ========== HELPERS ==========
+function formatDateRange(start, end) {
+    const s = new Date(start);
+    const e = new Date(end);
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    if (start === end) {
+        return `${s.getDate()} ${months[s.getMonth()]} ${s.getFullYear()}`;
+    }
+
+    if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
+        return `${s.getDate()}-${e.getDate()} ${months[s.getMonth()]} ${s.getFullYear()}`;
+    }
+
+    return `${s.getDate()} ${months[s.getMonth()]} - ${e.getDate()} ${months[e.getMonth()]} ${e.getFullYear()}`;
+}
+
+function getCategoryColor(cat) {
+    const colors = {
+        banking: '#0088cc',
+        fintech: '#3d1e6d',
+        blockchain: '#e040fb',
+        payments: '#00d4aa',
+        stablecoin: '#5b3a8c',
+        policy: '#6b7280'
+    };
+    return colors[cat] || '#6b7280';
+}
+
+// Click outside modals to close
+document.getElementById('eventModal').addEventListener('click', function(e) {
+    if (e.target === this) closeEventModal();
+});
+document.getElementById('addModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAddModal();
+});
+
+// Init
+init();
+</script>
+</body>
+</html>
