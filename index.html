@@ -1634,6 +1634,45 @@ function init() {
                 e.ubyx.attendee = '';
             }
         });
+        // Merge any new default events not yet in localStorage
+        const existingIds = new Set(events.map(e => e.id));
+        DEFAULT_EVENTS.forEach(de => {
+            if (!existingIds.has(de.id)) {
+                events.push(JSON.parse(JSON.stringify(de)));
+            }
+        });
+        // Also update existing default events with any new field values
+        // (e.g. website URLs, descriptions, ubyx notes) if user hasn't customised them
+        const savedIds = new Set(JSON.parse(saved).map(e => e.id));
+        DEFAULT_EVENTS.forEach(de => {
+            if (savedIds.has(de.id)) {
+                const existing = events.find(e => e.id === de.id);
+                if (existing) {
+                    // Update website if it was empty and now has a value
+                    if (!existing.website && de.website) {
+                        existing.website = de.website;
+                    }
+                    // Update venue if it was empty/generic and now has a value
+                    if ((!existing.venue || existing.venue === 'Park Plaza') && de.venue && de.venue !== existing.venue) {
+                        existing.venue = de.venue;
+                    }
+                    // Update ubyx notes if they were empty and now have content
+                    if (!existing.ubyx.notes && de.ubyx.notes) {
+                        existing.ubyx.notes = de.ubyx.notes;
+                    }
+                    // Update ubyx attending/speaking if default has been set
+                    if (de.ubyx.attending && !existing.ubyx.attending) {
+                        existing.ubyx.attending = de.ubyx.attending;
+                        existing.ubyx.attendee = de.ubyx.attendee;
+                    }
+                    if (de.ubyx.speaking && !existing.ubyx.speaking) {
+                        existing.ubyx.speaking = de.ubyx.speaking;
+                        existing.ubyx.speaker = de.ubyx.speaker;
+                    }
+                }
+            }
+        });
+        saveToStorage();
     } else {
         events = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
     }
