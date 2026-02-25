@@ -774,6 +774,43 @@
             font-size: 12px;
         }
 
+        /* Header search */
+        .header-search-box {
+            position: relative;
+        }
+
+        .header-search-box input {
+            width: 240px;
+            padding: 8px 12px 8px 34px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .header-search-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .header-search-box input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.18);
+            border-color: var(--ubyx-teal);
+            box-shadow: 0 0 0 3px rgba(0,212,170,0.2);
+        }
+
+        .header-search-box::before {
+            content: "\1F50D";
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -841,6 +878,9 @@
         </div>
     </div>
     <div class="header-actions">
+        <div class="header-search-box">
+            <input type="text" placeholder="Search events..." id="headerSearchInput" oninput="syncSearch(this)">
+        </div>
         <button class="btn" onclick="exportCalendar()">Export CSV</button>
         <button class="btn btn-primary" onclick="openAddModal()">+ Add Event</button>
     </div>
@@ -851,7 +891,7 @@
         <div class="sidebar-section">
             <div class="sidebar-title">Search</div>
             <div class="search-box">
-                <input type="text" placeholder="Search events..." id="searchInput" oninput="filterEvents()">
+                <input type="text" placeholder="Search events..." id="searchInput" oninput="syncSearch(this)">
             </div>
         </div>
 
@@ -1644,6 +1684,17 @@ function getFilteredEvents() {
 
 function filterEvents() {
     renderAll();
+}
+
+function syncSearch(source) {
+    const headerInput = document.getElementById('headerSearchInput');
+    const sidebarInput = document.getElementById('searchInput');
+    if (source === headerInput || source.id === 'headerSearchInput') {
+        sidebarInput.value = headerInput.value;
+    } else {
+        headerInput.value = sidebarInput.value;
+    }
+    filterEvents();
 }
 
 // ========== VIEWS ==========
